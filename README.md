@@ -1,9 +1,9 @@
-## Installation
+## Installation :gear:
 
-### Ruby version
+### Ruby version :gem:
 We use Ruby 2.5.5 for our application.
 
-### System dependencies
+### System dependencies :hammer:
 To install dependencies, simply change the current directory to 'Surakarta' and run:
 
 ```
@@ -11,20 +11,20 @@ bundle config --local disable_platform_warnings true
 bundle install --path vendor/bundle
 ```
 
-### Configuration
+### Configuration :screwdriver:
 
-#### Update Yarn:
+#### Update Yarn :yarn:
 ```
 yarn add –check-files
 ```
 
-#### Install webpacker
+#### Install webpacker :space_invader:
 ```
 rails webpacker:install
 ```
 This will take a few minutes...
 
-## Running the server
+## Running the server :runner:
 
 To run the server, simply run the command:
 ```
