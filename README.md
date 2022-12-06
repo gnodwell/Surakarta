@@ -1,26 +1,37 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
 ## Installation
 
+### Ruby version
 We use Ruby 2.5.5 for our application.
 
+### System dependencies
 To install dependencies, simply change the current directory to 'Surakarta' and run:
 
-```bundle install --path vendor/bundle```
+```
+bundle config --local disable_platform_warnings true
+bundle install --path vendor/bundle
+```
 
+### Configuration
 
+#### Update Yarn:
+```
+yarn add –check-files
+```
 
+#### Install webpacker
+```
+rails webpacker:install
+```
+This will take a few minutes...
 
-Things you may want to cover:
+## Running the server
 
-* Ruby version
+To run the server, simply run the command:
+```
+rails server -d -p xxxx -b 0.0.0.0
+```
 
-* System dependencies
-
-* Configuration
+Where "xxxx" is the port number.
 
 * Database creation
 
