@@ -11,6 +11,10 @@ consumer.subscriptions.create("GameChannel", {
   },
 
   received(data) {
-    // Called when there's incoming data on the websocket for this channel
+    $('#messages').append('<p class="received"> ' + data.message + '</p>')
+  },
+
+  speak(message) {
+    this.perform('speak', { message: message })
   }
 });

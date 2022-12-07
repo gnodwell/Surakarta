@@ -8,6 +8,21 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+require("jquery")
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+import GameChannel from "../channels/game_channel";
+
+$(document).on('turbolinks:load', function () {
+  $("form").on('submit', function(e){
+    e.preventDefault();
+    let message = $('#message').val();
+    if (message.length > 0) {
+        GameChannel.speak(message);
+      $('#message').val('')
+    }
+  });
+})
