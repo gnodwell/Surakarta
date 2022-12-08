@@ -1,2 +1,30 @@
-<h1>Surakarta</h1>
-<p>Find me in app/views/game/index.html.erb</p>
+<!DOCTYPE html>
+<html>
+  <%= stylesheet_link_tag "game.css" %>
+
+  <head>
+    <title>Page Title</title>
+  </head>
+
+  <body>
+
+  <div id="home_page">
+    <h1 id="title">Surakarta</h1>
+    
+
+    <%# Need to input flash message if player name is not entered%>
+
+    <form id="player_name_form">
+      <%# <label for="player_name">Insert Name</form> %>
+      <input type="text" id="player_name_input" name="player_name" placeholder="Insert name...">
+    </form>
+
+    <div id="queue_for_game">
+      <a href="/queue_page" class="queue_btn">Queue for game</a>
+    </div>
+
+  </div>
+
+  </body>
+
+</html>
