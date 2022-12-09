@@ -54,28 +54,13 @@ class Board {
 
     def move(current_cell, target_cell, colour)
         
-        #Validating if positions exist on the board
-        if current_cell.x? < MIN_SIZE or current_cell.x? > MAX_SIZE or current_cell.y? < MIN_SIZE OR current_cell.y? > MAX_SIZE
-            return
+        if validateMove(current_cell, target_cell, colour)
+            return false
         
-        if target_cell.x? < MIN_SIZE or target_cell.x? > MAX_SIZE or target_cell.y? < MIN_SIZE OR target_cell.y? > MAX_SIZE
-            return
-
-        #Validate that current pos has a a piece and target does not
-        if NOT current_cell.contains?
-            return
-        
-        if target_cell.contains?
-            return
-        
-        #Validating the positions are within one of each other, if so, make the move
-        x_diff = current_cell.contains?.x? - target_cell.contains?.x? 
-        y_diff = current_cell.contains?.y? - target_cell.contains?.y? 
-
-
-        if (x_diff).abs == 1 AND (y_diff).abs == 1
-            target_cell.replacePiece(current_cell.contains?)
-            current_cell.replacePiece(nil)
+            if (x_diff).abs == 1 AND (y_diff).abs == 1
+                target_cell.replacePiece(current_cell.contains?)
+                current_cell.replacePiece(nil)
+                return true
 
 
 
@@ -84,7 +69,30 @@ class Board {
     private
 
     #Not sure how to implement this since there's no arguments
-    def validateMove
+    def validateMove(current_cell, target_cell, colour)
+        #Validating if positions exist on the board
+        if current_cell.x? < MIN_SIZE or current_cell.x? > MAX_SIZE or current_cell.y? < MIN_SIZE OR current_cell.y? > MAX_SIZE
+            return false
+        
+        if target_cell.x? < MIN_SIZE or target_cell.x? > MAX_SIZE or target_cell.y? < MIN_SIZE OR target_cell.y? > MAX_SIZE
+            return false
+
+        #Validate that current pos has a a piece and target does not
+        if NOT current_cell.contains?
+            return false
+        
+        if target_cell.contains?
+            return false
+        
+        #Validating the positions are within one of each other, if so, make the move
+        x_diff = current_cell.contains?.x? - target_cell.contains?.x? 
+        y_diff = current_cell.contains?.y? - target_cell.contains?.y? 
+
+        if (x_diff).abs == 1 AND (y_diff).abs == 1
+            return true
+        
+        return false
+
 
     #Not sure how to implement this since there's no arguments
     def validateCapture
