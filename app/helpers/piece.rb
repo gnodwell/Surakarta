@@ -1,19 +1,19 @@
-class Piece {
+class Piece
 
     #colours are only :black or :white
     @colour = nil
     @captured = false
 
-    __init__(colour) {
+    def initialize(colour)
         @colour = colour
-    }
+    end
 
-    def setCaptured() {
+    def setCaptured() 
         @captured = true   
-    }
+    end
 
-    def getColour() {
+    def getColour() 
         @colour
-    }
+    end
 
-}
+end
