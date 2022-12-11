@@ -14,4 +14,3 @@ class Coin
     @face
   end
 end
-  
