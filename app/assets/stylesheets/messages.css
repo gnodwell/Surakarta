@@ -2,9 +2,3 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
-
-.form-class{
-  border: 1px solid red;
-  width: 50%;
-  height: 100px;
-}

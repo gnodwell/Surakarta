@@ -11,7 +11,8 @@ consumer.subscriptions.create("GameChannel", {
   },
 
   received(data) {
-    $('#messages').append('<p class="received"> ' + data.message + '</p>')
+    console.log("recieved message.")
+    document.getElementById("messages").innerHTML += data.html
   },
 
   speak(message) {
