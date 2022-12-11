@@ -1,4 +1,4 @@
-class Cell {
+class Cell
     @x = -1
     @y = -1
     @contains = nil
@@ -8,18 +8,23 @@ class Cell {
         @x = x
         @y = y
         @contains = contains
+    end
     
 
     def replacePiece(piece)
-        @cointains = piece
+        @contains = piece
+    end
     
 
     def contains?
         @contains
+    end
 
     def x?
         @x
+    end
 
     def y?
         @y
-}
+    end
+end
