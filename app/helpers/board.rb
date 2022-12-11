@@ -9,7 +9,7 @@ class Board {
     @boardState = Array.new(6){Array.new(6)}
 
 
-    def __init__() {
+    def initialize() {
 
     #Init the boardState
     for i in @boardState
