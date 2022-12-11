@@ -4,7 +4,7 @@ class MessageChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
-    Message.destroy_all
+    # Message.destroy_all
     # Any cleanup needed when channel is unsubscribed
   end
 end
