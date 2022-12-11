@@ -7,7 +7,7 @@ class Piece
       # Validate that the specified color is in the list of allowed colors
       raise ArgumentError, "Invalid color" unless Colors.include?(color)
   
-      @color = color
+      @color = Color[color]
       @captured = captured
     end
   
