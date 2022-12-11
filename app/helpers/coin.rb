@@ -1,3 +1,3 @@
-Class Coin {
+class Coin 
     
-}
+end
