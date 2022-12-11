@@ -4,7 +4,7 @@ class Cell {
     @contains = nil
     @loops = nil
 
-    def __init__(x, y, contains)
+    def initialize(x, y, contains)
         @x = x
         @y = y
         @contains = contains
