@@ -1,13 +1,12 @@
 class Piece
     # Enum for piece colors
-    Color = Enum.new(:black, :white)
+    Color = [:black, :white]
+    @captured = false
+    attr_reader :captured
   
     # Initialize a new Piece with the specified color and captired state
     def initialize(color, captured = false)
-      # Validate that the specified color is in the list of allowed colors
-      raise ArgumentError, "Invalid color" unless Colors.include?(color)
-  
-      @color = Color[color]
+      @color = if color == :black then Color[0] else Color[1] end
       @captured = captured
     end
   
@@ -22,3 +21,12 @@ class Piece
     end
 end
   
+
+print("Testing the Piece class\n")
+piece = Piece.new(:black)
+# test get color
+puts("Piece color: ")
+puts(piece.getColor)
+piece.setCaptured
+puts("Captured: ")
+puts(piece.captured)
