@@ -68,6 +68,8 @@ To run the server, simply run the command:
 rails server -d -p xxxx -b 0.0.0.0
 ```
 
+Where "xxxx" is the port number.
+
 For our port, you can run:
 
 ```bash
@@ -78,17 +80,5 @@ rails server -d -p 33030 -b 0.0.0.0
 Remove the 'node_modules' directory and 'yarn.lock' file.
 Run ```yarn```
 
+To get out of the rails:db simply use command + d or control + d
 
-Where "xxxx" is the port number.
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
