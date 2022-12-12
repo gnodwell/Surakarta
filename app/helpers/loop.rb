@@ -1,9 +1,7 @@
 class Loop {
-    # Enum for piece colors
-    Color = Enum.new(:black, :white)
+    @color = [:black, :white]
   
-    def initialize(color, cell)
-      @color = Color[color]
+    def initialize(cell)
       @cell = cell
     end
 
