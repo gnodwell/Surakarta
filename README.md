@@ -31,7 +31,19 @@ rails webpacker:install
 ```
 This will take a few minutes...
 
-### Creating the Players
+### Creating the Players & Migrate the DB :computer:
+First migrate the database with:
+
+```bash
+rails db:migrate
+```
+
+Then seed the db:
+
+```bash
+rails db:seed
+```
+
 Two users must be created before the server using the rails console. This can easily be done by using the following commands.
 
 To open the rails console, simply use:
