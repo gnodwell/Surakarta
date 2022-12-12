@@ -10,14 +10,14 @@ class GameSession < ApplicationRecord
     # is this supposed to be the constructor? Constructors can only be called initialize in ruby...
 
     @board = Board.new()
-    
-    # @board.createBoard() # not sure if this how a board is supposed to be initialized
+    # @SessionHost = session # would need some way to keep track of the session host that created the instance of this game session
   end
 
   def getResults()
     # no given way to implement this in given documentation, so...
 
-    ### This is the only way I could think of to get the winner and loser using the given documentation, so...
+    ### Below is the only way I could think of to get the winner and loser using the given documentation
+    ### this however would not be impolementing the design as specified in the documentation
     # player_result = []
     # for player in @SessionHost.get_players # will need SessionHost to store list of players, and have a method to retrieve them
     #   if player.piece_count == 0 # player will need a method to return the number of pieces they have
