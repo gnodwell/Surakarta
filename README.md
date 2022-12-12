@@ -44,7 +44,7 @@ Then seed the db:
 rails db:seed
 ```
 
-Two users must be created before the server using the rails console. This can easily be done by using the following commands.
+Two users must be created using the rails console. This can easily be done by using the following commands.
 
 To open the rails console, simply use:
 
@@ -52,7 +52,7 @@ To open the rails console, simply use:
 rails c
 ```
 
-Then use these commands to create the players:
+Then use this to create the players:
 
 ```rails
 player1 = User.new :name => "Player1"
