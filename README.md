@@ -80,5 +80,5 @@ rails server -d -p 33030 -b 0.0.0.0
 Remove the 'node_modules' directory and 'yarn.lock' file.
 Run ```yarn```
 
-To get out of the rails:db simply use command + d or control + d
+To get out of the ```rails:db``` or ```rails c``` simply use ```command + d``` or ```control + d```
 
