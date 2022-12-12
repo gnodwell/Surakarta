@@ -1,5 +1,5 @@
 require_relative 'board'
-require_relative 'session host'
+require_relative 'session_host'
 
 class Player
     @name = ""
@@ -27,7 +27,7 @@ class Player
         #Is there a restart var that is to be checked? If so it can implemented as such:
         #@restart = restartValue
     end
-    
+
     # --------------------- PRIVATE METHODS ---------------------
     private
 end
