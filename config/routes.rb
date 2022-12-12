@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :messages
   resources :users
-  # root "users#index"
+  get '/users', to: "users#index"
   root "game#index"
 
   get "/queue_page", to: 'game#queue_page'
