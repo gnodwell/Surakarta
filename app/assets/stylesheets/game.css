@@ -3,6 +3,11 @@
   They will automatically be included in application.css.
 */
 
+.form-class{
+  border: 1px solid red;
+  width: 50%;
+  height: 100px;
+}
 *{
   margin: 0px;
   padding: 0px;

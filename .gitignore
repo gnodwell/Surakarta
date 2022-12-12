@@ -4,6 +4,13 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+#Ignore .DS_Store
+.DS_Store
+
+#Ignore yarn.lock and node_modules
+yarn.lock
+node_modules/
+
 # Ignore bundler config.
 /.bundle
 

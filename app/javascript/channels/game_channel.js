@@ -3,6 +3,7 @@ import consumer from "./consumer"
 consumer.subscriptions.create("GameChannel", {
   connected() {
     // Called when the subscription is ready for use on the server
+    console.log("HELLO RAILS");
   },
 
   disconnected() {
@@ -10,6 +11,11 @@ consumer.subscriptions.create("GameChannel", {
   },
 
   received(data) {
-    // Called when there's incoming data on the websocket for this channel
+    console.log("recieved message.")
+    document.getElementById("messages").innerHTML += data.html
+  },
+
+  speak(message) {
+    this.perform('speak', { message: message })
   }
 });
