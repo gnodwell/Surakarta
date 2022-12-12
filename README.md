@@ -92,6 +92,11 @@ From the root of the project and run
 ```rails test```
 This will demonstrate the functionality of the Coin and Game Session that could be implemented
 
+## To test the piece class
+Navigate to the app/helpers directory and run
+```ruby piece.rb``` 
+This will demonstrate the functionality of the piece class as it initializes a Piece and uses the setCaptured and getColor methods, and prints the state of the piece.
+
 # Demo: Action Cables
 - Click on the 'test action cable functionality' button on the main page
 - Choose which player you are, and which one you would like to chat with
