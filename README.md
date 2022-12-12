@@ -82,3 +82,8 @@ Run ```yarn```
 
 To get out of the ```rails:db``` or ```rails c``` simply use ```command + d``` or ```control + d```
 
+##To test the board class
+Navigate to the app/helpers directory and run
+```ruby testRunner.rb``` 
+This will demonstrate the functionality of the board class for what could be implemeneted.
+
