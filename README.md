@@ -97,6 +97,12 @@ Navigate to the app/helpers directory and run
 ```ruby piece.rb``` 
 This will demonstrate the functionality of the piece class as it initializes a Piece and uses the setCaptured and getColor methods, and prints the state of the piece.
 
+## To test the Player class
+Navigate to the app/helpers directory and andd view
+``player.rb``` 
+This class does not have functionality that can be tested as the design was unclear on the implementation. Rather than assuming the missing or incorrect parts, the Player class outlines possible implementations via commented code.
+
+
 # Demo: Action Cables
 - Click on the 'test action cable functionality' button on the main page
 - Choose which player you are, and which one you would like to chat with
