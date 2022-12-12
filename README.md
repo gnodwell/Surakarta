@@ -82,10 +82,15 @@ Run ```yarn```
 
 To get out of the ```rails:db``` or ```rails c``` simply use ```command + d``` or ```control + d```
 
-##To test the board class
+## To test the board class
 Navigate to the app/helpers directory and run
 ```ruby testRunner.rb``` 
 This will demonstrate the functionality of the board class for what could be implemeneted.
+
+## Testing Coin and Game Session classes
+From the root of the project and run
+```rails test```
+This will demonstrate the functionality of the Coin and Game Session that could be implemented
 
 # Demo: Action Cables
 - Click on the 'test action cable functionality' button on the main page
