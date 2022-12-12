@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <%= stylesheet_link_tag "game.css" %>
+
+  <head>
+    <title>Page Title</title>
+  </head>
+
+  <body>
+    <div id="player_info">
+      <p>Name: (get name)</p>
+      <p>Colour: (get colour)</p>
+      <br>
+      <p>Name: (get name)</p>
+      <p>Colour: (get colour)</p>
+      <br>
+      <p>Turn: (get turn)</p>
+    </div>
+
+    <div id="move_input">
+      <form id="move_input_form">
+        <br>
+        
+        <label id="row_label">row</label>
+        <label id="col_label">col</label>
+        <br>
+        <label id="start_pos_lab">Start Position:</label>
+        <input id="row_input">
+        <input id="col_input"> 
+        <br>
+        <br>
+        <label id="end_pos_lab">End Position:</label>
+        <input id="row_input">
+        <input id="col_input"> 
+      </form>
+    </div>
+
+    <button id="move_btn">Move</button>
+  
+
+  </body>
+
+</html>

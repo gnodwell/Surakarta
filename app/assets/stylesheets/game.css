@@ -8,3 +8,136 @@
   width: 50%;
   height: 100px;
 }
+*{
+  margin: 0px;
+  padding: 0px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+#home_page {
+  height: 100vh;
+}
+
+#title {
+  padding-top: 25vh;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 60px;
+}
+
+#player_name_form {
+  /* padding-top: 25vh; */
+  text-align: center;
+  vertical-align: middle;
+}
+
+input[type=text] {
+  width: 30vh;
+  padding: 12px 20px;
+  margin: 8px 0px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  /* border-radius: px; */
+  box-sizing: border-box;
+  background-color: #f2f2f2;
+  text-align: center;
+}
+
+::placeholder{
+  color: black;
+}
+
+#queue_for_game {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.queue_btn {
+  width: 26vh;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 22px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+#queue_page {
+  height: 100vh;
+}
+
+#queue_msg {
+  padding-top: 40vh;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 60px;
+}
+
+
+#move_input {
+  position: fixed;
+  bottom: 10vh;
+  left: 3vh;
+  height: 15vh;
+  width: 25vh;
+  background-color: #f1f1f1;
+  border-radius: 20px;
+}
+
+#row_col {
+  /* justify-content: right; */
+  padding-left: 120px;
+}
+
+#pos_input{
+  padding-left: 10px;
+
+}
+
+#row_label{
+  display: inline;
+  padding-left: 15vh;
+  font-size: 12px;
+}
+
+#col_label {
+  display: inline;
+  padding-left: 0.8vh;
+  font-size: 12px;
+}
+
+#start_pos_lab {
+  padding-right: 3.5vh;
+  display: inline;
+}
+
+#end_pos_lab {
+  padding-right: 4.05vh;
+  display: inline;
+}
+
+#row_input {
+  display: inline;
+  width: 17px;
+}
+
+#col_input {
+  display: inline;
+  width: 17px;
+}
+
+#move_btn {
+  position: fixed;
+  bottom: 3vh;
+  left: 10vh;
+  height: 5vh;
+  width: 10vh;
+  background-color: #f1f1f1;
+  border-radius: 20px;
+}
