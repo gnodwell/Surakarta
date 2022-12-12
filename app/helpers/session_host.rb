@@ -1,5 +1,5 @@
-class Session_host 
-    hostCoint = Coin.new()
+class Session_host
+    hostCoin = Coin.new()
     starting = nil
     reset = nil
     players = nil
@@ -10,6 +10,7 @@ class Session_host
 
     private
     def creatPathMapEntries(board_id)
+
     end
 
 end
