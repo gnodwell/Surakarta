@@ -87,3 +87,14 @@ Navigate to the app/helpers directory and run
 ```ruby testRunner.rb``` 
 This will demonstrate the functionality of the board class for what could be implemeneted.
 
+# Demo: Action Cables
+- Click on the 'test action cable functionality' button on the main page
+- Choose which player you are, and which one you would like to chat with
+- Press the chat button
+- Send a message to the other player
+- In another browser window, repeat these steps but instead of choosing your chosen player (ex: Player1), choose a different one
+
+## What's going on here?
+
+This clearly demonstrates the usuage of the action cable and how messages are communicated over this medium.
+In an actual game, players moves would be communicated over the action cable, and the server could process these moves.
