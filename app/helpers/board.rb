@@ -100,11 +100,14 @@ class Board
     def capture(cur_cell, target_cell, colour)
         #Check if there's the correct pegs in the cur_cell and target_cell
 
-        validateCapture(cur_cell, target_cell, colour)
-
-
-
-
+        if validateCapture(cur_cell, target_cell, colour)
+            target_cell.replacePiece(cur_cell.contains?)
+            cur_cell.replacePiece(nil)
+            return true
+        else
+            return false
+        end
+    end
 
     # --------------------- PRIVATE METHODS ---------------------
     private
@@ -164,21 +167,25 @@ class Board
             end
         end
 
-        #check if the peg can go up to hit it's target
-        for yPos in 0 .. cur_cell.y?
-            if 
-
-        if peg
+        if moveUp(cur_cel, cur_cel, target, false)
+            return true
+        elsif moveDown(cur_cel, cur_cel, target, false)
+            return true
+        elsif moveLeft(cur_cel, cur_cel, target, false)
+            return true
+        elsif moveRight(cur_cel, cur_cel, target, false)
+            return true
+        else
+            return false
+        end
     end
 
 
     #make the move up, or through a loop, then check if it's a colision. If it's not, recursively all another funtion
-    def moveUp(cur_cel, start_cell, target_cell)
-        y = cur_cell.y?
-
+    def moveUp(cur_cel, start_cell, target_cell, hasTraversedLoop)
 
         #Check if the current cell is at the top
-        if y == 0
+        if cur_cell.y? == 0
             #Check if the peg can go through a loop
             newCell = checkLoop(cur_cell, target_cell)
 
@@ -187,24 +194,223 @@ class Board
                 return false
             end
 
+            hasTraversedLoop = true
+
             #Check if the new position is the start_cell, target_cell, or another piece
             if newCell.x? == start_cell.x? and newCell.y? == start_cell.y?
                 return false
             elsif newCell.x? == target_cell.x? and newCell.y? == target_cell.y?
                 return true
-            elsif board[newCell.x?][newCell.y?].contains?
+            elsif board[newCell.x?][newCell.y?].contains? != nil
                 return false
             end
 
             #Call the next method on it recursively
             if newCell.x? == 0
-                return moveRight(newCell, start_cell, target_cell)
+                return moveRight(newCell, start_cell, target_cell, hasTraversedLoop)
             elsif newCell.x? == 5
-                return moveLeft(newCell, start_cell, target_cell)
+                return moveLeft(newCell, start_cell, target_cell, hasTraversedLoop)
             else
                 print("BAD, SHOULD NOT BE HERE")
                 return false
             end
+
+        else
+            #Making the move up
+            newCell = Cell.new(cur_cell.x?, y - 1)
+
+            if hasTraversedLoop
+                #Checking if there's a colision
+                if newCell.x? == start_cell.x? and newCell.y? == start_cell.y?
+                    return false
+                elsif newCell.x? == target_cell.x? and newCell.y? == target_cell.y?
+                    return true
+                elsif board[newCell.x?][newCell.y?].contains? != nil
+                    return false
+                end
+
+            else
+                if board[newCell.x?][newCell.y?].contains? != nil
+                    return false
+                end
+            end
+
+            return moveUp(newCell, start_cell, target_cell, hasTraversedLoop)
+        end
+    end
+
+    #make the move down, or through a loop, then check if it's a colision. If it's not, recursively all another funtion
+    def moveDown(cur_cel, start_cell, target_cell)
+
+        #Check if the current cell is at the bottom
+        if cur_cell.y? == 5
+            #Check if the peg can go through a loop
+            newCell = checkLoop(cur_cell, target_cell)
+
+            #Check if the loop exists
+            if newCell == nil
+                return false
+            end
+
+            hasTraversedLoop = true
+
+            #Check if the new position is the start_cell, target_cell, or another piece
+            if newCell.x? == start_cell.x? and newCell.y? == start_cell.y?
+                return false
+            elsif newCell.x? == target_cell.x? and newCell.y? == target_cell.y?
+                return true
+            elsif board[newCell.x?][newCell.y?].contains? != nil
+                return false
+            end
+
+            #Call the next method on it recursively
+            if newCell.x? == 0
+                return moveRight(newCell, start_cell, target_cell, hasTraversedLoop)
+            elsif newCell.x? == 5
+                return moveLeft(newCell, start_cell, target_cell, hasTraversedLoop)
+            else
+                print("BAD, SHOULD NOT BE HERE")
+                return false
+            end
+
+        else
+            #Making the move down
+            newCell = Cell.new(cur_cell.x?, y + 1)
+
+            if hasTraversedLoop
+                #Checking if there's a colision
+                if newCell.x? == start_cell.x? and newCell.y? == start_cell.y?
+                    return false
+                elsif newCell.x? == target_cell.x? and newCell.y? == target_cell.y?
+                    return true
+                elsif board[newCell.x?][newCell.y?].contains? != nil
+                    return false
+                end
+
+            else
+                if board[newCell.x?][newCell.y?].contains? != nil
+                    return false
+                end
+            end
+
+            return moveDown(newCell, start_cell, target_cell, hasTraversedLoop)
+        end
+    end
+
+    #make the move right, or through a loop, then check if it's a colision. If it's not, recursively all another funtion
+    def moveRight(cur_cel, start_cell, target_cell)
+
+
+        #Check if the current cell is at the most rigt position
+        if cur_cell.x? == 5
+            #Check if the peg can go through a loop
+            newCell = checkLoop(cur_cell, target_cell)
+
+            #Check if the loop exists
+            if newCell == nil
+                return false
+            end
+
+            hasTraversedLoop = true
+
+            #Check if the new position is the start_cell, target_cell, or another piece
+            if newCell.x? == start_cell.x? and newCell.y? == start_cell.y?
+                return false
+            elsif newCell.x? == target_cell.x? and newCell.y? == target_cell.y?
+                return true
+            elsif board[newCell.x?][newCell.y?].contains? != nil
+                return false
+            end
+
+            #Call the next method on it recursively
+            if newCell.y? == 0
+                return moveDown(newCell, start_cell, target_cell, hasTraversedLoop)
+            elsif newCell.y? == 5
+                return moveUp(newCell, start_cell, target_cell, hasTraversedLoop)
+            else
+                print("BAD, SHOULD NOT BE HERE")
+                return false
+            end
+
+        else
+            #Making the move right
+            newCell = Cell.new(x + 1, cur_cell.y?)
+
+            if hasTraversedLoop
+                #Checking if there's a colision
+                if newCell.x? == start_cell.x? and newCell.y? == start_cell.y?
+                    return false
+                elsif newCell.x? == target_cell.x? and newCell.y? == target_cell.y?
+                    return true
+                elsif board[newCell.x?][newCell.y?].contains? != nil
+                    return false
+                end
+
+            else
+                if board[newCell.x?][newCell.y?].contains?  != nil
+                    return false
+                end
+            end
+
+            return moveDown(newCell, start_cell, target_cell, hasTraversedLoop)
+        end
+    end
+
+    #make the move left, or through a loop, then check if it's a colision. If it's not, recursively all another funtion
+    def moveLeft(cur_cel, start_cell, target_cell)
+
+        #Check if the current cell is at the bottom
+        if cur_cell.x? == 0
+            #Check if the peg can go through a loop
+            newCell = checkLoop(cur_cell, target_cell)
+
+            #Check if the loop exists
+            if newCell == nil
+                return false
+            end
+
+            hasTraversedLoop = true
+
+            #Check if the new position is the start_cell, target_cell, or another piece
+            if newCell.x? == start_cell.x? and newCell.y? == start_cell.y?
+                return false
+            elsif newCell.x? == target_cell.x? and newCell.y? == target_cell.y?
+                return true
+            elsif board[newCell.x?][newCell.y?].contains? != nil
+                return false
+            end
+
+            #Call the next method on it recursively
+            if newCell.y? == 0
+                return moveDown(newCell, start_cell, target_cell, hasTraversedLoop)
+            elsif newCell.y? == 5
+                return moveUp(newCell, start_cell, target_cell, hasTraversedLoop)
+            else
+                print("BAD, SHOULD NOT BE HERE")
+                return false
+            end
+
+        else
+            #Making the move left
+            newCell = Cell.new(x - 1, cur_cell.y?)
+
+            if hasTraversedLoop
+                #Checking if there's a colision
+                if newCell.x? == start_cell.x? and newCell.y? == start_cell.y?
+                    return false
+                elsif newCell.x? == target_cell.x? and newCell.y? == target_cell.y?
+                    return true
+                elsif board[newCell.x?][newCell.y?].contains? != nil
+                    return false
+                end
+
+            else
+                if board[newCell.x?][newCell.y?].contains? != nil
+                    return false
+                end
+            end
+
+            return moveDown(newCell, start_cell, target_cell, hasTraversedLoop)
         end
     end
 
