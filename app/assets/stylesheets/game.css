@@ -27,7 +27,6 @@
 }
 
 #player_name_form {
-  /* padding-top: 25vh; */
   text-align: center;
   vertical-align: middle;
 }
@@ -38,7 +37,6 @@ input[type=text] {
   margin: 8px 0px;
   display: inline-block;
   border: 1px solid #ccc;
-  /* border-radius: px; */
   box-sizing: border-box;
   background-color: #f2f2f2;
   text-align: center;
@@ -84,32 +82,26 @@ input[type=text] {
   position: fixed;
   bottom: 10vh;
   left: 3vh;
-  height: 15vh;
-  width: 25vh;
+  height: 25vh;
+  width: 35vh;
   background-color: #f1f1f1;
   border-radius: 20px;
 }
 
-#row_col {
-  /* justify-content: right; */
-  padding-left: 120px;
-}
-
 #pos_input{
   padding-left: 10px;
-
 }
 
 #row_label{
   display: inline;
-  padding-left: 15vh;
-  font-size: 12px;
+  padding-left: 16.5vh;
+  font-size: 15px;
 }
 
 #col_label {
   display: inline;
-  padding-left: 0.8vh;
-  font-size: 12px;
+  padding-left: 3vh;
+  font-size: 15px;
 }
 
 #start_pos_lab {
@@ -122,14 +114,24 @@ input[type=text] {
   display: inline;
 }
 
-#row_input {
+#row_input_1 {
   display: inline;
-  width: 17px;
+  width: 50px;
 }
 
-#col_input {
+#col_input_1 {
   display: inline;
-  width: 17px;
+  width: 50px;
+}
+
+#row_input_2 {
+  display: inline;
+  width: 50px;
+}
+
+#col_input_2 {
+  display: inline;
+  width: 50px;
 }
 
 #move_btn {
@@ -140,4 +142,38 @@ input[type=text] {
   width: 10vh;
   background-color: #f1f1f1;
   border-radius: 20px;
+}
+
+.game_board {
+  position: absolute;
+  top: 12.1vh;
+  left: 54.75vh;
+  margin-top: -50px;
+  margin-left: -50px;
+  width: 700px;
+  height: 700px;
+  background-image: url('board.png');
+  background-size: 700px 700px;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.grid-container {
+  position: absolute;
+  top: 22.75vh;
+  left: 61.7vh;
+  display: inline-grid;
+  grid-template-columns: repeat(6, 9.93vh);
+  grid-template-rows: repeat(6, 9.88vh);
+  padding: 10px;
+  z-index: 2;
+}
+
+.grid-item {
+  /* background-color: rgba(255, 255, 255, 0.8); */
+  /* border: 1px solid rgba(0, 0, 0, 0.8); */
+  padding: 2px;
+  font-size: 10px;
+  text-align: center;
+  z-index: 3;
 }
