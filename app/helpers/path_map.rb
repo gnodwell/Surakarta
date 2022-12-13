@@ -1,5 +1,5 @@
 class path_map
-    cellId = nil
+    startCellId = nil
     endCellId = nil
     loopId = nil
 end
