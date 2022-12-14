@@ -9,10 +9,12 @@ class Board
     @size = 36 # I think size means number of points on the board
     @boardState = nil
 
-    # THIS METHOD FOR TESTING PURPOSES ONLY
+    # --------------- <THIS METHOD FOR TESTING PURPOSES ONLY> ---------------
     def getCell(x, y)
         return @boardState[x][y]
     end
+    # --------------- <\THIS METHOD FOR TESTING PURPOSES ONLY> ---------------
+
 
     def initialize
         @boardState = Array.new(6){Array.new(6)}
@@ -142,8 +144,6 @@ class Board
         return false
     end
 
-
-
     #Not sure how to implement this since there's no arguments
     def validateCapture(cur_cell, target_cell)
 
@@ -183,7 +183,6 @@ class Board
             return false
         end
     end
-
 
     #make the move up, or through a loop, then check if it's a colision. If it's not, recursively all another funtion
     def moveUp(cur_cell, start_cell, target_cell, hasTraversedLoop)
@@ -422,7 +421,8 @@ class Board
     def getLoopEnd(cell)
 
         #get all path maps find if the current cell has a path to another cell through a loop
-        pathMaps = pathMaps()
+        #pathMaps = pathMaps.all()  #<--- Used in real version if it worked
+        pathMaps = pathMaps()    #<--- Used for testing purposes
         pathMaps.each do |pathMap|
           if cell.x? == pathMap.instance_variable_get(:@startCellId).x?
             if cell.y? == pathMap.instance_variable_get(:@startCellId).y?
@@ -434,7 +434,7 @@ class Board
     end
 
 
-    #HELPER
+    # --------------- <THIS METHOD FOR TESTING PURPOSES ONLY> ---------------
     def pathMaps
         maps = []
         (MIN_SIZE..MAX_SIZE).each do |x|
@@ -522,7 +522,6 @@ class Board
                     pathMap = PathMap.new()
                     pathMap.startCellId = startCell
                     pathMap.endCellId = endCell
-                    pathMap.save
                     maps.push(pathMap)
                 end
             end
@@ -530,6 +529,7 @@ class Board
 
         return maps
     end
+    # --------------- <\THIS METHOD FOR TESTING PURPOSES ONLY> ---------------
 end
 
 

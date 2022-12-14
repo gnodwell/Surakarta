@@ -1,12 +1,14 @@
 require_relative 'board.rb'
+require_relative '../models/application_record'
 
-class Game_Session #< ApplicationRecord
+
+class GameSession
   ### Stuff for data model
   # belongs_to :SessionHost
   # has_many :players
   # has :board
 
-  def initialize()
+  def initialize
     # is this supposed to be the constructor? Constructors can only be called initialize in ruby...
 
     @board = Board.new
