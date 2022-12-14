@@ -10,9 +10,9 @@ class Player
 
     #@restart --> Assuming this is another instance variable that needs to be created
 
-    def initialize() 
+    def initialize(name) 
        #Assuming name is passed in the initialization
-       #@name = name
+       @name = name
     end
 
     # --------------------- PUBLIC METHODS ---------------------

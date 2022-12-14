@@ -6,7 +6,7 @@ class GameSession < ApplicationRecord
   # has_many :players
   # has :board
 
-  def createGameSession()
+  def initialize()
     # is this supposed to be the constructor? Constructors can only be called initialize in ruby...
 
     @board = Board.new()
@@ -17,16 +17,22 @@ class GameSession < ApplicationRecord
     # no given way to implement this in given documentation, so...
 
     ### Below is the only way I could think of to get the winner and loser using the given documentation
-    ### this however would not be impolementing the design as specified in the documentation
-    # player_result = []
-    # for player in @SessionHost.get_players # will need SessionHost to store list of players, and have a method to retrieve them
-    #   if player.piece_count == 0 # player will need a method to return the number of pieces they have
-    #     player_result.push(player)
-    #   elsif player.piece_count > 0 && player_result.length() > 0
-    #     player_result.push(player)
-    #   end
-    # end
-    # return player_result
+    ### this however would not be implementing the design as specified in the documentation
+    if @board.validateMove
+    end
+
+    player_result = []
+
+    host = SessionHost.find_by(game_session_id: self.id) 
+
+    for player in host.get_players # will need SessionHost to store list of players, and have a method to retrieve them
+      if player.piece_count == 0 # player will need a method to return the number of pieces they have
+        player_result.push(player)
+      elsif player.piece_count > 0 && player_result.length() > 0
+        player_result.push(player)
+      end
+    end
+    return player_result
   end
 
   def restartGame()
