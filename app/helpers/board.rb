@@ -1,5 +1,6 @@
 require_relative 'cell'
 require_relative 'piece'
+require_relative 'path_map'
 
 MAX_SIZE = 5
 MIN_SIZE = 0
@@ -9,31 +10,31 @@ class Board
     @boardState = nil
 
     # THIS METHOD FOR TESTING PURPOSES ONLY
-    def getCell(i, j)
-        return @boardState[i][j]
+    def getCell(x, y)
+        return @boardState[x][y]
     end
 
 
     def initialize
         @boardState = Array.new(6){Array.new(6)}
         #Init the boardState
-        (MIN_SIZE..MAX_SIZE).each do |i|
-            (MIN_SIZE..MAX_SIZE).each do |j|
+        (MIN_SIZE..MAX_SIZE).each do |y| #i
+            (MIN_SIZE..MAX_SIZE).each do |x| #j
                 #populate the 6x6 array with cells
 
                 #Init white pieces in cells on the top two rows
-                if i == MIN_SIZE or i == 1
+                if y == 0 or y == 1
                     piece = Piece.new(:white)
-                    @boardState[i][j] = Cell.new(i, j, piece)
+                    @boardState[x][y] = Cell.new(x, y, piece)
 
                 #Init black pieces in cells on the bottom two rows
-                elsif i == 4 or i == MAX_SIZE
+                elsif y == 4 or y == 5
                     piece = Piece.new(:black)
-                    @boardState[i][j] = Cell.new(i, j, piece)
+                    @boardState[x][y] = Cell.new(x, y, piece)
 
                 #Init empty cells in the middle rows
                 else
-                    @boardState[i][j] = Cell.new(i, j, nil)
+                    @boardState[x][y] = Cell.new(x, y, nil)
                 end
             end
         end
@@ -106,38 +107,28 @@ class Board
     def validateMove(current_cell, target_cell, colour)
 
         if current_cell.contains? == nil
-            print("A")
             return false
         end
 
         if colour != current_cell.contains?.getColour
-            print("B")
             return false
         end
 
         #Validating if positions exist on the board
         if current_cell.x? < MIN_SIZE or current_cell.x? > MAX_SIZE or current_cell.y? < MIN_SIZE or current_cell.y? > MAX_SIZE
-            print "C"
             return false
         end
 
         if target_cell.x? < MIN_SIZE or target_cell.x? > MAX_SIZE or target_cell.y? < MIN_SIZE or target_cell.y? > MAX_SIZE
-            print "D"
             return false
         end
         
         #Validate that current pos has a a piece and target does not
         if current_cell.contains? == nil
-            print "E"
             return false
         end
 
         if target_cell.contains? != nil
-            print target_cell.contains?.class, "\n"
-            print target_cell.contains?.getColour, "\n"
-            print target_cell.x?, "\n"
-            print target_cell.y?, "\n"
-            print "F\n"
             return false
         end
 
@@ -149,7 +140,6 @@ class Board
             return true
         end
 
-        print "H"
         return false
     end
 
@@ -434,7 +424,7 @@ class Board
     def getLoopEnd(cell)
 
         #get all path maps find if the current cell has a path to another cell through a loop
-        pathMaps = PathMap.all()
+        pathMaps = pathMaps()
         pathMaps.each do |pathMap|
           if cell.x? == pathMap.instance_variable_get(:@startCellId).x?
             if cell.y? == pathMap.instance_variable_get(:@startCellId).y?
@@ -443,6 +433,104 @@ class Board
           end
         end
         return nil
+    end
+
+
+    #HELPER
+    def pathMaps
+        maps = []
+        (MIN_SIZE..MAX_SIZE).each do |x|
+            (MIN_SIZE..MAX_SIZE).each do |y|
+
+                if x == 0
+                    if y == 1
+                        startCell = Cell.new(0, 1, nil)
+                        endCell = Cell.new(1, 0, nil)
+
+                    elsif y == 2
+                        startCell = Cell.new(0, 2, nil)
+                        endCell = Cell.new(2, 0, nil)
+
+                    elsif y == 3
+                        startCell = Cell.new(0, 3, nil)
+                        endCell = Cell.new(3, 0, nil)
+
+                    elsif y == 4
+                        startCell = Cell.new(0, 4, nil)
+                        endCell = Cell.new(4, 0, nil)
+                        
+                    end
+                elsif x == 1
+                    if y == 0
+                        startCell = Cell.new(1, 0, nil)
+                        endCell = Cell.new(0, 1, nil)
+
+                    elsif y == 5
+                        startCell = Cell.new(1, 5, nil)
+                        endCell = Cell.new(0, 4, nil)
+                        
+                    end
+                elsif x == 2
+                    if y == 0
+                        startCell = Cell.new(2, 0, nil)
+                        endCell = Cell.new(0, 2, nil)
+                        
+                    elsif y == 5
+                        startCell = Cell.new(2, 5, nil)
+                        endCell = Cell.new(0, 3, nil)
+
+                    end
+                elsif x == 3
+                    if y == 0
+                        startCell = Cell.new(3, 0, nil)
+                        endCell = Cell.new(5, 2, nil)
+                        
+                    elsif y == 5
+                        startCell = Cell.new(3, 5, nil)
+                        endCell = Cell.new(5, 3, nil)
+                        
+                    end
+                elsif x == 4
+                    if y == 0
+                        startCell = Cell.new(4, 0, nil)
+                        endCell = Cell.new(5, 3, nil)
+                        
+                    elsif y == 5
+                        startCell = Cell.new(4, 5, nil)
+                        endCell = Cell.new(5, 4, nil)
+                        
+                    end
+                elsif x == 5
+                    if y == 1
+                        startCell = Cell.new(5, 1, nil)
+                        endCell = Cell.new(4, 0, nil)
+                        
+                    elsif y == 2
+                        startCell = Cell.new(5, 2, nil)
+                        endCell = Cell.new(3, 0, nil)
+                        
+                    elsif y == 3
+                        startCell = Cell.new(5, 3, nil)
+                        endCell = Cell.new(3, 5, nil)
+                        
+                    elsif y == 4
+                        startCell = Cell.new(5, 4, nil)
+                        endCell = Cell.new(4, 5, nil)
+                        
+                    end
+                end
+
+                if startCell != nil
+                    pathMap = PathMap.new()
+                    pathMap.startCellId = startCell
+                    pathMap.endCellId = endCell
+                    #pathMap.save
+                    maps.push(pathMap)
+                end
+            end
+        end
+
+        return maps
     end
 end
 

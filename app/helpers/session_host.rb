@@ -95,8 +95,11 @@ class Session_host
 
                 if startCell != nil
                     pathMap = PathMap.new()
-                    pathMap.instance_variable_get(:@startCellId) = startCell
-                    pathMap.instance_variable_get(:@endCellId) = endCell
+                    #pathMap.instance_variable_get(:@startCellId) = startCell
+                    pathMap.startCellId = startCell
+                    pathMap.endCellId = endCell
+                    
+                    #pathMap.instance_variable_get(:@endCellId) = endCell
                     pathMap.save
                 end
             end
