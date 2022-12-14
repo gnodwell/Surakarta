@@ -1,5 +1,6 @@
 require_relative 'cell'
 require_relative 'piece'
+require_relative 'path_map'
 
 MAX_SIZE = 5
 MIN_SIZE = 0
@@ -8,39 +9,33 @@ class Board
     @size = 36 # I think size means number of points on the board
     @boardState = nil
 
-    # FOR TESTING PURPOSES ONLY
-    def getCell(i, j)
-        return @boardState[i][j]
+    # THIS METHOD FOR TESTING PURPOSES ONLY
+    def getCell(x, y)
+        return @boardState[x][y]
     end
 
 
-    def initialize()
+    def initialize
         @boardState = Array.new(6){Array.new(6)}
         #Init the boardState
-        (MIN_SIZE..MAX_SIZE).each do |i|
-            (MIN_SIZE..MAX_SIZE).each do |j|
+        (MIN_SIZE..MAX_SIZE).each do |y| #i
+            (MIN_SIZE..MAX_SIZE).each do |x| #j
                 #populate the 6x6 array with cells
 
-                #Init black pieces in cells on the top two rows
-                if i == MIN_SIZE or i == 1
-                    piece = Piece.new(:black)
-                    @boardState[i][j] = Cell.new(i, j, piece)
-                    #@boardState.at(i).push(Cell.new(i, j, piece))
-
-                #Init white pieces in cells on the bottom two rows
-                elsif i == 4 or i == MAX_SIZE
+                #Init white pieces in cells on the top two rows
+                if y == 0 or y == 1
                     piece = Piece.new(:white)
-                    @boardState[i][j] = Cell.new(i, j, piece)
+                    @boardState[x][y] = Cell.new(x, y, piece)
+
+                #Init black pieces in cells on the bottom two rows
+                elsif y == 4 or y == 5
+                    piece = Piece.new(:black)
+                    @boardState[x][y] = Cell.new(x, y, piece)
 
                 #Init empty cells in the middle rows
                 else
-                    @boardState[i][j] = Cell.new(i, j, nil)
+                    @boardState[x][y] = Cell.new(x, y, nil)
                 end
-
-                #print(@board.at(i).class, "\n")
-                #print(@board.at(i).at(j).class, "\n")
-
-                # TO DO: NEEDS TO ESTABLISH THE LOOPS
             end
         end
     end
@@ -84,11 +79,7 @@ class Board
 
     def move(current_cell, target_cell, colour)
 
-        if colour != current_cell.contains?.getColour
-            return false
-        end
-
-        if not validateMove(current_cell, target_cell, colour)
+        if validateMove(current_cell, target_cell, colour) == false
             return false
         end
 
@@ -97,10 +88,10 @@ class Board
         return true
     end
 
-    def capture(cur_cell, target_cell, colour)
+    def capture(cur_cell, target_cell)
         #Check if there's the correct pegs in the cur_cell and target_cell
 
-        if validateCapture(cur_cell, target_cell, colour)
+        if validateCapture(cur_cell, target_cell)
             target_cell.replacePiece(cur_cell.contains?)
             cur_cell.replacePiece(nil)
             return true
@@ -114,6 +105,15 @@ class Board
 
     #Not sure how to implement this since there's no arguments
     def validateMove(current_cell, target_cell, colour)
+
+        if current_cell.contains? == nil
+            return false
+        end
+
+        if colour != current_cell.contains?.getColour
+            return false
+        end
+
         #Validating if positions exist on the board
         if current_cell.x? < MIN_SIZE or current_cell.x? > MAX_SIZE or current_cell.y? < MIN_SIZE or current_cell.y? > MAX_SIZE
             return false
@@ -122,13 +122,13 @@ class Board
         if target_cell.x? < MIN_SIZE or target_cell.x? > MAX_SIZE or target_cell.y? < MIN_SIZE or target_cell.y? > MAX_SIZE
             return false
         end
-
+        
         #Validate that current pos has a a piece and target does not
-        if not current_cell.contains?
+        if current_cell.contains? == nil
             return false
         end
 
-        if target_cell.contains?
+        if target_cell.contains? != nil
             return false
         end
 
@@ -146,34 +146,39 @@ class Board
 
 
     #Not sure how to implement this since there's no arguments
-    def validateCapture(cur_cell, target_cell, colour)
-        if @boardState[cur_cell.x?][cur_cell.y?].contains? == nil or @boardState[cur_cell.x?][cur_cell.y?].contains?.getColour != colour
+    def validateCapture(cur_cell, target_cell)
+
+        #Validate the two cells have pieces in them
+        if cur_cell.contains? == nil or target_cell.contains? == nil
             return false
-        elsif @boardState[target_cell.x?][target_cell.y?].contains? == nil or @boardState[target_cell.x?][target_cell.y?].contains?.getColour == colour
+        end
+
+        #Validate the two pieces are of different colours
+        if cur_cell.contains?.getColour == target_cell.contains?.getColour
             return false
         end
 
         #Check if the current cell is in one of the corners
         if cur_cell.x? == 0 or cur_cell.x? == 5
-            if cur_cell.y == 0 or cur_cell.y == 5
+            if cur_cell.y? == 0 or cur_cell.y? == 5
                 return false
             end
         end
 
         #check if the target cell is in one of the corners
         if target_cell.x? == 0 or target_cell.x? == 5
-            if target_cell.y == 0 or target_cell.y == 5
+            if target_cell.y? == 0 or target_cell.y? == 5
                 return false
             end
         end
 
-        if moveUp(cur_cel, cur_cel, target, false)
+        if moveUp(cur_cell, cur_cell, target_cell, false)
             return true
-        elsif moveDown(cur_cel, cur_cel, target, false)
+        elsif moveDown(cur_cell, cur_cell, target_cell, false)
             return true
-        elsif moveLeft(cur_cel, cur_cel, target, false)
+        elsif moveLeft(cur_cell, cur_cell, target_cell, false)
             return true
-        elsif moveRight(cur_cel, cur_cel, target, false)
+        elsif moveRight(cur_cell, cur_cell, target_cell, false)
             return true
         else
             return false
@@ -182,12 +187,12 @@ class Board
 
 
     #make the move up, or through a loop, then check if it's a colision. If it's not, recursively all another funtion
-    def moveUp(cur_cel, start_cell, target_cell, hasTraversedLoop)
+    def moveUp(cur_cell, start_cell, target_cell, hasTraversedLoop)
 
         #Check if the current cell is at the top
         if cur_cell.y? == 0
             #Check if the peg can go through a loop
-            newCell = checkLoop(cur_cell, target_cell)
+            newCell = getLoopEnd(cur_cell)
 
             #Check if the loop exists
             if newCell == nil
@@ -201,7 +206,7 @@ class Board
                 return false
             elsif newCell.x? == target_cell.x? and newCell.y? == target_cell.y?
                 return true
-            elsif board[newCell.x?][newCell.y?].contains? != nil
+            elsif @boardState[newCell.x?][newCell.y?].contains? != nil
                 return false
             end
 
@@ -217,7 +222,7 @@ class Board
 
         else
             #Making the move up
-            newCell = Cell.new(cur_cell.x?, y - 1)
+            newCell = Cell.new(cur_cell.x?, cur_cell.y? - 1, nil)
 
             if hasTraversedLoop
                 #Checking if there's a colision
@@ -225,12 +230,12 @@ class Board
                     return false
                 elsif newCell.x? == target_cell.x? and newCell.y? == target_cell.y?
                     return true
-                elsif board[newCell.x?][newCell.y?].contains? != nil
+                elsif @boardState[newCell.x?][newCell.y?].contains? != nil
                     return false
                 end
 
             else
-                if board[newCell.x?][newCell.y?].contains? != nil
+                if @boardState[newCell.x?][newCell.y?].contains? != nil
                     return false
                 end
             end
@@ -240,12 +245,12 @@ class Board
     end
 
     #make the move down, or through a loop, then check if it's a colision. If it's not, recursively all another funtion
-    def moveDown(cur_cel, start_cell, target_cell)
+    def moveDown(cur_cell, start_cell, target_cell, hasTraversedLoop)
 
         #Check if the current cell is at the bottom
         if cur_cell.y? == 5
             #Check if the peg can go through a loop
-            newCell = checkLoop(cur_cell, target_cell)
+            newCell = getLoopEnd(cur_cell)
 
             #Check if the loop exists
             if newCell == nil
@@ -259,7 +264,7 @@ class Board
                 return false
             elsif newCell.x? == target_cell.x? and newCell.y? == target_cell.y?
                 return true
-            elsif board[newCell.x?][newCell.y?].contains? != nil
+            elsif @boardState[newCell.x?][newCell.y?].contains? != nil
                 return false
             end
 
@@ -275,7 +280,7 @@ class Board
 
         else
             #Making the move down
-            newCell = Cell.new(cur_cell.x?, y + 1)
+            newCell = Cell.new(cur_cell.x?, cur_cell.y? + 1, nil)
 
             if hasTraversedLoop
                 #Checking if there's a colision
@@ -283,12 +288,12 @@ class Board
                     return false
                 elsif newCell.x? == target_cell.x? and newCell.y? == target_cell.y?
                     return true
-                elsif board[newCell.x?][newCell.y?].contains? != nil
+                elsif @boardState[newCell.x?][newCell.y?].contains? != nil
                     return false
                 end
 
             else
-                if board[newCell.x?][newCell.y?].contains? != nil
+                if @boardState[newCell.x?][newCell.y?].contains? != nil
                     return false
                 end
             end
@@ -298,13 +303,13 @@ class Board
     end
 
     #make the move right, or through a loop, then check if it's a colision. If it's not, recursively all another funtion
-    def moveRight(cur_cel, start_cell, target_cell)
+    def moveRight(cur_cell, start_cell, target_cell, hasTraversedLoop)
 
 
         #Check if the current cell is at the most rigt position
         if cur_cell.x? == 5
             #Check if the peg can go through a loop
-            newCell = checkLoop(cur_cell, target_cell)
+            newCell = getLoopEnd(cur_cell)
 
             #Check if the loop exists
             if newCell == nil
@@ -318,7 +323,7 @@ class Board
                 return false
             elsif newCell.x? == target_cell.x? and newCell.y? == target_cell.y?
                 return true
-            elsif board[newCell.x?][newCell.y?].contains? != nil
+            elsif @boardState[newCell.x?][newCell.y?].contains? != nil
                 return false
             end
 
@@ -334,7 +339,7 @@ class Board
 
         else
             #Making the move right
-            newCell = Cell.new(x + 1, cur_cell.y?)
+            newCell = Cell.new(cur_cell.x? + 1, cur_cell.y?, nil)
 
             if hasTraversedLoop
                 #Checking if there's a colision
@@ -342,12 +347,12 @@ class Board
                     return false
                 elsif newCell.x? == target_cell.x? and newCell.y? == target_cell.y?
                     return true
-                elsif board[newCell.x?][newCell.y?].contains? != nil
+                elsif @boardState[newCell.x?][newCell.y?].contains? != nil
                     return false
                 end
 
             else
-                if board[newCell.x?][newCell.y?].contains?  != nil
+                if @boardState[newCell.x?][newCell.y?].contains?  != nil
                     return false
                 end
             end
@@ -357,12 +362,12 @@ class Board
     end
 
     #make the move left, or through a loop, then check if it's a colision. If it's not, recursively all another funtion
-    def moveLeft(cur_cel, start_cell, target_cell)
+    def moveLeft(cur_cell, start_cell, target_cell, hasTraversedLoop)
 
         #Check if the current cell is at the bottom
         if cur_cell.x? == 0
             #Check if the peg can go through a loop
-            newCell = checkLoop(cur_cell, target_cell)
+            newCell = getLoopEnd(cur_cell)
 
             #Check if the loop exists
             if newCell == nil
@@ -376,7 +381,7 @@ class Board
                 return false
             elsif newCell.x? == target_cell.x? and newCell.y? == target_cell.y?
                 return true
-            elsif board[newCell.x?][newCell.y?].contains? != nil
+            elsif @boardState[newCell.x?][newCell.y?].contains? != nil
                 return false
             end
 
@@ -392,7 +397,7 @@ class Board
 
         else
             #Making the move left
-            newCell = Cell.new(x - 1, cur_cell.y?)
+            newCell = Cell.new(cur_cell.x? - 1, cur_cell.y?, nil)
 
             if hasTraversedLoop
                 #Checking if there's a colision
@@ -400,12 +405,12 @@ class Board
                     return false
                 elsif newCell.x? == target_cell.x? and newCell.y? == target_cell.y?
                     return true
-                elsif board[newCell.x?][newCell.y?].contains? != nil
+                elsif @boardState[newCell.x?][newCell.y?].contains? != nil
                     return false
                 end
 
             else
-                if board[newCell.x?][newCell.y?].contains? != nil
+                if @boardState[newCell.x?][newCell.y?].contains? != nil
                     return false
                 end
             end
@@ -419,7 +424,7 @@ class Board
     def getLoopEnd(cell)
 
         #get all path maps find if the current cell has a path to another cell through a loop
-        pathMaps = PathMap.all()
+        pathMaps = pathMaps()
         pathMaps.each do |pathMap|
           if cell.x? == pathMap.instance_variable_get(:@startCellId).x?
             if cell.y? == pathMap.instance_variable_get(:@startCellId).y?
@@ -428,7 +433,105 @@ class Board
           end
         end
         return nil
-      end
+    end
+
+
+    #HELPER
+    def pathMaps
+        maps = []
+        (MIN_SIZE..MAX_SIZE).each do |x|
+            (MIN_SIZE..MAX_SIZE).each do |y|
+
+                if x == 0
+                    if y == 1
+                        startCell = Cell.new(0, 1, nil)
+                        endCell = Cell.new(1, 0, nil)
+
+                    elsif y == 2
+                        startCell = Cell.new(0, 2, nil)
+                        endCell = Cell.new(2, 0, nil)
+
+                    elsif y == 3
+                        startCell = Cell.new(0, 3, nil)
+                        endCell = Cell.new(3, 0, nil)
+
+                    elsif y == 4
+                        startCell = Cell.new(0, 4, nil)
+                        endCell = Cell.new(4, 0, nil)
+                        
+                    end
+                elsif x == 1
+                    if y == 0
+                        startCell = Cell.new(1, 0, nil)
+                        endCell = Cell.new(0, 1, nil)
+
+                    elsif y == 5
+                        startCell = Cell.new(1, 5, nil)
+                        endCell = Cell.new(0, 4, nil)
+                        
+                    end
+                elsif x == 2
+                    if y == 0
+                        startCell = Cell.new(2, 0, nil)
+                        endCell = Cell.new(0, 2, nil)
+                        
+                    elsif y == 5
+                        startCell = Cell.new(2, 5, nil)
+                        endCell = Cell.new(0, 3, nil)
+
+                    end
+                elsif x == 3
+                    if y == 0
+                        startCell = Cell.new(3, 0, nil)
+                        endCell = Cell.new(5, 2, nil)
+                        
+                    elsif y == 5
+                        startCell = Cell.new(3, 5, nil)
+                        endCell = Cell.new(5, 3, nil)
+                        
+                    end
+                elsif x == 4
+                    if y == 0
+                        startCell = Cell.new(4, 0, nil)
+                        endCell = Cell.new(5, 3, nil)
+                        
+                    elsif y == 5
+                        startCell = Cell.new(4, 5, nil)
+                        endCell = Cell.new(5, 4, nil)
+                        
+                    end
+                elsif x == 5
+                    if y == 1
+                        startCell = Cell.new(5, 1, nil)
+                        endCell = Cell.new(4, 0, nil)
+                        
+                    elsif y == 2
+                        startCell = Cell.new(5, 2, nil)
+                        endCell = Cell.new(3, 0, nil)
+                        
+                    elsif y == 3
+                        startCell = Cell.new(5, 3, nil)
+                        endCell = Cell.new(3, 5, nil)
+                        
+                    elsif y == 4
+                        startCell = Cell.new(5, 4, nil)
+                        endCell = Cell.new(4, 5, nil)
+                        
+                    end
+                end
+
+                if startCell != nil
+                    pathMap = PathMap.new()
+                    pathMap.startCellId = startCell
+                    pathMap.endCellId = endCell
+                    #pathMap.save
+                    maps.push(pathMap)
+                end
+            end
+        end
+
+        return maps
+    end
 end
 
 
