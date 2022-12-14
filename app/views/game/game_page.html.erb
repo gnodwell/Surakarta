@@ -28,6 +28,7 @@
     </div>
 
 
+
     <div class="game_board"></div>
     <div class="grid-container">
       <div class="grid-item" id="A1"><%= image_tag "white-dot2.png", height: 25%></div> <!-- A1 -->
@@ -91,7 +92,27 @@
     </div>
 
     <div id="move_input">
-      <form id="move_input_form" action="/move" method="post">
+      <%= form_with url: "/move", method: :post do |form| %>
+        <%= form.label :move, "Row", :style => "padding-left: 12vh;" %>
+        <%= form.label :move, "Col", :style => "padding-left: 4vh;" %>
+        <br>
+        <%= form.label :move, "Start Position" %>
+        <%= form.text_field :row1, :style => "width: 7vh;", :maxlength => 1 %>
+        <%= form.text_field :col1, :style => "width: 7vh;", :maxlength => 1 %>
+        <br>
+        <%= form.label :move, "End Position" %>
+        <%= form.text_field :row2, :style => "width: 7vh; margin-left: 0.5vh", :maxlength => 1 %>
+        <%= form.text_field :col2, :style => "width: 7vh;", :maxlength => 1 %>
+        <br>
+        <%= form.submit "Move", :style => "height: 5vh; width: 10vh; border-radius: 20px; margin-left: 12vh; margin-top: 2vh"%>
+      <% end %>
+      
+    </div>
+    <%# <input id="move_btn" name="commit" type="submit" value="Move" data-disable-with="Move"> %>
+
+    <%# <button onclick="movePiece('A4', 'A1')" id="move_btn">Move</button> %>
+
+     <%# <form id="move_input_form" action="/move" method="post">
         <br>
         
         <label id="row_label">Row</label>
@@ -105,12 +126,9 @@
         <label id="end_pos_lab">End Position:</label>
         <input id="row_input_2" name="row_input_2" type="text">
         <input id="col_input_2" name="col_input_2" type="text"> 
+        <input id="move_btn" name="commit" type="submit" value="Move" data-disable-with="Move">
       </form>
-    </div>
-    <input id="move_btn" name="commit" type="submit" value="Move" data-disable-with="Move">
-
-    <%# <button onclick="movePiece('A4', 'A1')" id="move_btn">Move</button> %>
-  
+   %>
 
   </body>
 
