@@ -11,7 +11,7 @@ class Session_host
 
     def initialize()
         
-        @currentSession = Game_Session.new()
+        @currentSession = Game_Session.new
         @hostCoin = Coin.new()
         ans = @hostCoin.flip()
         creatPathMapEntries()

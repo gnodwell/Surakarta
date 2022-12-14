@@ -5,6 +5,6 @@ class SessionController < ApplicationController
  
     def create 
         player = Player.new(params[:name])
-        session = Session_host.new()
+        session = Session_host.new
     end 
 end

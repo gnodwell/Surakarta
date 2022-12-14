@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   root "game#index"
 
   get "/queue_page", to: 'game#queue_page'
-  get "/game_page", to: 'game#game_page', as: 'queue_path'
+  get "/game_page", to: 'game#game_page', as: 'game_path'
 
   post "/queue", to: 'session#create'
   # post "/game_page", to: 'board#create'
