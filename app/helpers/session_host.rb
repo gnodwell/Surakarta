@@ -1,6 +1,6 @@
-require_relative 'pathMap'
+require_relative 'path_map'
 require_relative 'coin'
-require_relative 'GameSession'
+require_relative 'game_session'
 
 class Session_host
     @hostCoin = nil
