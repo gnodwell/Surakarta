@@ -3,6 +3,25 @@ require_relative 'piece'
 require_relative 'board'
 
 
+print ("Testing the cell\n")
+print("Should return two successes\n")
+piece1 = Piece.new(:white)
+piece2 = Piece.new(:black)
+cell1 = Cell.new(0, 0, piece1)
+
+cell1.replacePiece(piece2)
+if cell1.contains? == piece1
+    print "Error: Cell contains piece1\n"
+else 
+    print "Success: Cell contains piece2\n"
+end
+
+if cell1.x? == 0 && cell1.y? == 0
+    print "Success: Cell has correct coordinates\n"
+else
+    print "Error: Cell has incorrect coordinates\n"
+end
+
 print("Testing the board\n")
 board = Board.new()
 
@@ -99,4 +118,6 @@ end
 
 
 print("\nPerform a few false captures (should return 3 falses in a row)\n")
-#print(board.capture(board.getCell(5,3), , :white), "\n")
+print(board.capture(board.getCell(5,5), board.getCell(5,2)), "\n")
+print(board.capture(board.getCell(4,4), board.getCell(4,4)), "\n")
+print(board.capture(board.getCell(5,5), board.getCell(0,0)), "\n")

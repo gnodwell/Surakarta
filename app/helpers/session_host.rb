@@ -10,8 +10,18 @@ class Session_host
     @currentSession = nil
 
     def initialize()
-        @hostCoin = Coin.new()
-        @currentSession = GameSession.new()
+        
+        @currentSession = Game_Session.new
+        @hostCoin = Coin.new
+        ans = @hostCoin.flip()
+        creatPathMapEntries()
+
+        if ans == :H
+            @starting = @players[0]
+        else 
+            @starting = @players[1]
+        end
+
     end
 
     def create()

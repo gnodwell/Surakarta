@@ -15,6 +15,19 @@ class Player
        @name = name
     end
 
+    def checkQueuedPlayer()
+        sessions = Sessions.all()
+
+        counter = 0
+        for session in Sessions
+            if session.player.length() == 1
+                return counter
+            else
+                counter += 1
+            end
+        end
+    end
+
     # --------------------- PUBLIC METHODS ---------------------
 
     def checkRestart()
