@@ -1,10 +1,8 @@
 require_relative '../helpers/player'
 
-class MessagesController < ApplicationController
+class SessionController < ApplicationController
  
     def create 
-        player = Player.new()
-
-        
+        player = Player.new(params[:name])
     end 
 end

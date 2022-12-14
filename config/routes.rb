@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get "/queue_page", to: 'game#queue_page'
   get "/game_page", to: 'game#game_page', as: 'queue_path'
 
-  post "/queue", to: 'session_host#create'
+  post "/queue", to: 'session#create'
   # post "/game_page", to: 'board#create'
 
   post "/move", to: "board#move"
