@@ -1,6 +1,6 @@
 require_relative 'board.rb'
 
-class GameSession < ApplicationRecord
+class GameSession
   ### Stuff for data model
   # belongs_to :SessionHost
   # has_many :players
