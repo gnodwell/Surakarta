@@ -7,7 +7,13 @@
 
 
     <script>
-      function movePiece(moveTo, moveFrom) {
+      function movePiece(row1, col1, row2, col2) {
+        moveFrom = row1.value
+        moveFrom = moveFrom.concat(col1.value)
+        moveFrom = moveFrom.toString().toUpperCase()
+        moveTo = row2.value
+        moveTo = moveTo.concat(col2.value)
+        moveTo = moveTo.toString().toUpperCase()
         temp = document.getElementById(moveTo).innerHTML
         document.getElementById(moveTo).innerHTML = document.getElementById(moveFrom).innerHTML
         document.getElementById(moveFrom).innerHTML = temp
@@ -73,7 +79,7 @@
 
 
 
-    <div id="move_input">
+    <%# <div id="move_input">
       <form id="move_input_form" action="/move">
         <br>
         
@@ -89,7 +95,7 @@
         <input id="row_input_2">
         <input id="col_input_2"> 
       </form>
-    </div>
+    </div> %>
 
     <div id="move_input">
       <%= form_with url: "/move", method: :post do |form| %>
@@ -106,29 +112,34 @@
         <br>
         <%= form.submit "Move", :style => "height: 5vh; width: 10vh; border-radius: 20px; margin-left: 12vh; margin-top: 2vh"%>
       <% end %>
+
+
       
     </div>
     <%# <input id="move_btn" name="commit" type="submit" value="Move" data-disable-with="Move"> %>
 
-    <%# <button onclick="movePiece('A4', 'A1')" id="move_btn">Move</button> %>
-
-     <%# <form id="move_input_form" action="/move" method="post">
-        <br>
-        
-        <label id="row_label">Row</label>
-        <label id="col_label">Col</label>
-        <br>
-        <label id="start_pos_lab">Start Position:</label>
-        <input id="row_input_1" name="row_input_1" type="text">
-        <input id="col_input_1" name="col_input_1" type="text"> 
-        <br>
-        <br>
-        <label id="end_pos_lab">End Position:</label>
-        <input id="row_input_2" name="row_input_2" type="text">
-        <input id="col_input_2" name="col_input_2" type="text"> 
-        <input id="move_btn" name="commit" type="submit" value="Move" data-disable-with="Move">
-      </form>
-   %>
+    
+    <br>
+    <br>
+    <p id="p1">The following form is to test front end moving pieces on the board</p>
+    <p id="p1">The other form is the post request however it is not setup</p>
+    <form id="move_input_form">
+      <br>
+      <label id="row_label">Row</label>
+      <label id="col_label">Col</label>
+      <br>
+      <label id="start_pos_lab">Start Position:</label>
+      <input id="row_input_1" name="row_input_1" type="text" maxlength="1">
+      <input id="col_input_1" name="col_input_1" type="text" maxlength="1"> 
+      <br>
+      <br>
+      <label id="end_pos_lab">End Position:</label>
+      <input id="row_input_2" name="row_input_2" type="text" maxlength="1">
+      <input id="col_input_2" name="col_input_2" type="text" maxlength="1"> 
+      <br>
+    </form>
+    <button onclick="movePiece(row_input_1, col_input_1, row_input_2, col_input_2)" id="move_btn_2">Move</button>
+  
 
   </body>
 

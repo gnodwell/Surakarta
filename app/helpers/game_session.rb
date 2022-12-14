@@ -1,6 +1,7 @@
 require_relative 'board.rb'
 require_relative '../models/application_record'
 
+
 class GameSession
   ### Stuff for data model
   # belongs_to :SessionHost

@@ -66,6 +66,27 @@ input[type=text] {
   cursor: pointer;
 }
 
+#btn_to {
+  text-align: center;
+  vertical-align: middle;
+}
+
+#btn_to_game {
+  width: 26vh;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 22px;
+  margin: 4px 2px;
+  margin-top: 2vh;
+  cursor: pointer;
+}
+
 #queue_page {
   height: 100vh;
 }
@@ -116,22 +137,22 @@ input[type=text] {
 
 #row_input_1 {
   display: inline;
-  width: 50px;
+  width: 60px;
 }
 
 #col_input_1 {
   display: inline;
-  width: 50px;
+  width: 60px;
 }
 
 #row_input_2 {
   display: inline;
-  width: 50px;
+  width: 60px;
 }
 
 #col_input_2 {
   display: inline;
-  width: 50px;
+  width: 60px;
 }
 
 #move_btn {
@@ -176,4 +197,31 @@ input[type=text] {
   font-size: 10px;
   text-align: center;
   z-index: 3;
+}
+
+#move_btn_2 {
+  /* position: fixed;
+  bottom: 3vh;
+  left: 10vh; */
+  height: 5vh;
+  width: 10vh;
+  background-color: #f1f1f1;
+  border-radius: 20px;
+  margin-left: 12vh;
+}
+
+#move_input_form {
+  /* position: fixed;
+  bottom: 10vh;
+  left: 3vh; */
+  height: 28vh;
+  width: 35vh;
+  background-color: #f1f1f1;
+  border-radius: 20px;
+  /* margin-left: 20vh; */
+}
+
+#p1 {
+  font-size: x-small;
+  color: red;
 }
