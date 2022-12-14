@@ -522,7 +522,7 @@ class Board
                     pathMap = PathMap.new()
                     pathMap.startCellId = startCell
                     pathMap.endCellId = endCell
-                    #pathMap.save
+                    pathMap.save
                     maps.push(pathMap)
                 end
             end
