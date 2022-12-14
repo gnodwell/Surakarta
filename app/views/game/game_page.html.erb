@@ -4,9 +4,19 @@
 
   <head>
     <title>Page Title</title>
+
+
+    <script>
+      function movePiece(moveTo, moveFrom) {
+        temp = document.getElementById(moveTo).innerHTML
+        document.getElementById(moveTo).innerHTML = document.getElementById(moveFrom).innerHTML
+        document.getElementById(moveFrom).innerHTML = temp
+      }
+    </script>
   </head>
 
   <body>
+
     <div id="player_info">
       <p>Name: (get name)</p>
       <p>Colour: (get colour)</p>
@@ -17,26 +27,108 @@
       <p>Turn: (get turn)</p>
     </div>
 
+
+
+    <div class="game_board"></div>
+    <div class="grid-container">
+      <div class="grid-item" id="A1"><%= image_tag "white-dot2.png", height: 25%></div> <!-- A1 -->
+      <div class="grid-item" id="B1"><%= image_tag "white-dot2.png", height: 25%></div> <!-- B1 -->
+      <div class="grid-item" id="C1"><%= image_tag "white-dot2.png", height: 25%></div> <!-- C1 -->
+      <div class="grid-item" id="D1"><%= image_tag "white-dot2.png", height: 25%></div> <!-- D1 -->
+      <div class="grid-item" id="E1"><%= image_tag "white-dot2.png", height: 25%></div> <!-- E1 -->
+      <div class="grid-item" id="F1"><%= image_tag "white-dot2.png", height: 25%></div> <!-- F1 -->
+      <div class="grid-item" id="A2"><%= image_tag "white-dot2.png", height: 25%></div> <!-- A2 -->
+      <div class="grid-item" id="B2"><%= image_tag "white-dot2.png", height: 25%></div> <!-- B2 -->
+      <div class="grid-item" id="C2"><%= image_tag "white-dot2.png", height: 25%></div> <!-- C2 -->
+      <div class="grid-item" id="D2"><%= image_tag "white-dot2.png", height: 25%></div> <!-- D2 -->
+      <div class="grid-item" id="E2"><%= image_tag "white-dot2.png", height: 25%></div> <!-- E2 -->
+      <div class="grid-item" id="F2"><%= image_tag "white-dot2.png", height: 25%></div> <!-- F2 -->
+      <div class="grid-item" id="A3"></div> <!-- A3 -->
+      <div class="grid-item" id="B3"></div> <!-- B3 -->
+      <div class="grid-item" id="C3"></div> <!-- C3 -->
+      <div class="grid-item" id="D3"></div> <!-- D3 -->
+      <div class="grid-item" id="E3"></div> <!-- E3 -->
+      <div class="grid-item" id="F3"></div> <!-- F3 -->
+      <div class="grid-item" id="A4"></div> <!-- A4 -->
+      <div class="grid-item" id="B4"></div> <!-- B4 -->
+      <div class="grid-item" id="C4"></div> <!-- C4 -->
+      <div class="grid-item" id="D4"></div> <!-- D4 -->
+      <div class="grid-item" id="E4"></div> <!-- E4 -->
+      <div class="grid-item" id="F4"></div> <!-- F4 -->
+      <div class="grid-item" id="A5"><%= image_tag "black-dot", height: 20%></div> <!-- A5 -->
+      <div class="grid-item" id="B5"><%= image_tag "black-dot", height: 20%></div> <!-- B5 -->
+      <div class="grid-item" id="C5"><%= image_tag "black-dot", height: 20%></div> <!-- C5 -->
+      <div class="grid-item" id="D5"><%= image_tag "black-dot", height: 20%></div> <!-- D5 -->
+      <div class="grid-item" id="E5"><%= image_tag "black-dot", height: 20%></div> <!-- E5 -->
+      <div class="grid-item" id="F5"><%= image_tag "black-dot", height: 20%></div> <!-- F5 -->
+      <div class="grid-item" id="A6"><%= image_tag "black-dot", height: 20%></div> <!-- A6 -->
+      <div class="grid-item" id="B6"><%= image_tag "black-dot", height: 20%></div> <!-- B6 -->
+      <div class="grid-item" id="C6"><%= image_tag "black-dot", height: 20%></div> <!-- C6 -->
+      <div class="grid-item" id="D6"><%= image_tag "black-dot", height: 20%></div> <!-- D6 -->
+      <div class="grid-item" id="E6"><%= image_tag "black-dot", height: 20%></div> <!-- E6 -->
+      <div class="grid-item" id="F6"><%= image_tag "black-dot", height: 20%></div> <!-- F6 -->
+
+    </div>
+
+
+
+
     <div id="move_input">
-      <form id="move_input_form">
+      <form id="move_input_form" action="/move">
         <br>
         
         <label id="row_label">row</label>
         <label id="col_label">col</label>
         <br>
         <label id="start_pos_lab">Start Position:</label>
-        <input id="row_input">
-        <input id="col_input"> 
+        <input id="row_input_1">
+        <input id="col_input_1"> 
         <br>
         <br>
         <label id="end_pos_lab">End Position:</label>
-        <input id="row_input">
-        <input id="col_input"> 
+        <input id="row_input_2">
+        <input id="col_input_2"> 
       </form>
     </div>
 
-    <button id="move_btn">Move</button>
-  
+    <div id="move_input">
+      <%= form_with url: "/move", method: :post do |form| %>
+        <%= form.label :move, "Row", :style => "padding-left: 12vh;" %>
+        <%= form.label :move, "Col", :style => "padding-left: 4vh;" %>
+        <br>
+        <%= form.label :move, "Start Position" %>
+        <%= form.text_field :row1, :style => "width: 7vh;", :maxlength => 1 %>
+        <%= form.text_field :col1, :style => "width: 7vh;", :maxlength => 1 %>
+        <br>
+        <%= form.label :move, "End Position" %>
+        <%= form.text_field :row2, :style => "width: 7vh; margin-left: 0.5vh", :maxlength => 1 %>
+        <%= form.text_field :col2, :style => "width: 7vh;", :maxlength => 1 %>
+        <br>
+        <%= form.submit "Move", :style => "height: 5vh; width: 10vh; border-radius: 20px; margin-left: 12vh; margin-top: 2vh"%>
+      <% end %>
+      
+    </div>
+    <%# <input id="move_btn" name="commit" type="submit" value="Move" data-disable-with="Move"> %>
+
+    <%# <button onclick="movePiece('A4', 'A1')" id="move_btn">Move</button> %>
+
+     <%# <form id="move_input_form" action="/move" method="post">
+        <br>
+        
+        <label id="row_label">Row</label>
+        <label id="col_label">Col</label>
+        <br>
+        <label id="start_pos_lab">Start Position:</label>
+        <input id="row_input_1" name="row_input_1" type="text">
+        <input id="col_input_1" name="col_input_1" type="text"> 
+        <br>
+        <br>
+        <label id="end_pos_lab">End Position:</label>
+        <input id="row_input_2" name="row_input_2" type="text">
+        <input id="col_input_2" name="col_input_2" type="text"> 
+        <input id="move_btn" name="commit" type="submit" value="Move" data-disable-with="Move">
+      </form>
+   %>
 
   </body>
 

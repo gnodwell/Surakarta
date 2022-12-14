@@ -1,14 +1,42 @@
-require_relative 'pathMap'
+require_relative 'path_map'
+require_relative 'coin'
+require_relative 'game_session'
 
 class Session_host
-    hostCoin = Coin.new()
-    starting = nil
-    reset = nil
-    players = nil
-    currentSession
+    @hostCoin = nil
+    @starting = nil
+    @reset = nil
+    @players = []
+    @currentSession = nil
+
+    def initialize()
+        @hostCoin = Coin.new()
+        @currentSession = GameSession.new()
+    end
+
+    def create()
 
 
+    end
 
+    def joinSession(player)
+        @players.push(player)
+
+        if @players.length() == 2
+            ans = @hostCoin.flip()
+
+            if ans == :H
+                @starting = @players[0]
+            else 
+                @starting = @players[1]
+            end
+            return true
+        else
+            createGameSession()
+        end
+
+        return false
+    end
 
     private
     def creatPathMapEntries(board_id)
@@ -95,8 +123,11 @@ class Session_host
 
                 if startCell != nil
                     pathMap = PathMap.new()
-                    pathMap.instance_variable_get(:@startCellId) = startCell
-                    pathMap.instance_variable_get(:@endCellId) = endCell
+                    #pathMap.instance_variable_get(:@startCellId) = startCell
+                    pathMap.startCellId = startCell
+                    pathMap.endCellId = endCell
+                    
+                    #pathMap.instance_variable_get(:@endCellId) = endCell
                     pathMap.save
                 end
             end
