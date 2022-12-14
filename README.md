@@ -82,15 +82,17 @@ Run ```yarn```
 
 To get out of the ```rails:db``` or ```rails c``` simply use ```command + d``` or ```control + d```
 
+## Testing Coin and Game Session classes
+From the root directory run:
+```ruby test/helpers/coin_test.rb```
+ and 
+```ruby test/helpers/game_sesssion_test.rb```
+. This will demonstrate the functionality of the Coin and Game Session that could be implemented
+
 ## To test the Board class
 Navigate to the app/helpers directory and run
 ```ruby testRunner.rb``` 
 This will demonstrate the functionality of the board class for what could be implemeneted.
-
-## Testing Coin and Game Session classes
-From the root of the project and run
-```rails test```
-This will demonstrate the functionality of the Coin and Game Session that could be implemented
 
 ## To test the Piece class
 Navigate to the app/helpers directory and run
