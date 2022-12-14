@@ -14,7 +14,6 @@ class Board
         return @boardState[x][y]
     end
 
-
     def initialize
         @boardState = Array.new(6){Array.new(6)}
         #Init the boardState
@@ -418,7 +417,6 @@ class Board
             return moveDown(newCell, start_cell, target_cell, hasTraversedLoop)
         end
     end
-
 
 
     def getLoopEnd(cell)
